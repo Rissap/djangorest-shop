@@ -33,10 +33,27 @@ class OrderDetailsView(generics.RetrieveAPIView):
 
 
 class OrderEnrollView(APIView):
-	def post(self, request, pk, format=None):
-		order = models.Order()
+	authentication_classes = (BasicAuthentication,)
+	permission_classes = (IsAuthenticated,)
+	
+	def post(self, request, format=None):
+		customer = request.POST.get("customer")
+		product = get_object_or_404(models.Product, pk=request.POST.get("product_id"))
+		sale = request.POST.get("sale")
+		if not sale:
+			sale = sales.get_sale(product)
 
-		product = get_object_or_404(models.Product, pk=pk)
-		sale = sales.get_sale(product)
+		total = product.price
+		if sale:
+			total *= sale.coef
 
+
+		order = models.Order(
+			customer=customer,
+			consultant=models.Employee.objects.get(user=request.user),
+			product=product,
+			sale=sale,
+			total=total)
+
+		order.save()
 		return Response({'enrolled': True})

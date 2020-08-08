@@ -14,7 +14,7 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(models.Order)
 class OrderAdmin(admin.ModelAdmin):
-	list_display = ('customer', 'product', 'created_at', 'updated_at')
+	list_display = ('customer', 'product', 'consultant', 'sale', 'total', 'confirmed')
 	list_filter = ('product', 'customer')
 
 

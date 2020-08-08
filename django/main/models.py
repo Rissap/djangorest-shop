@@ -18,7 +18,7 @@ class Employee(models.Model):
 
 class Product(models.Model):
 	title = models.CharField(max_length=255)
-	price = models.FloatField()
+	price = models.DecimalField(max_digits=13, decimal_places=2)
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 
@@ -27,7 +27,7 @@ class Product(models.Model):
 
 class Sales(models.Model):
 	types = models.CharField(max_length=20, unique=True)
-	coef = models.FloatField()
+	coef = models.DecimalField(max_digits=3, decimal_places=2)
 	priority = models.IntegerField(unique=True, null=True)
 
 	def __str__(self):
@@ -37,7 +37,9 @@ class Order(models.Model):
 	customer = models.CharField(max_length=255)
 	consultant = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True)
 	product = models.ForeignKey(Product, on_delete=models.CASCADE)
-	sale = models.ForeignKey(Sales, on_delete=models.SET_NULL, blank=True, null=True)
+	sale = models.ForeignKey(Sales, on_delete=models.SET_NULL, blank=True, null=True, default=None)
+	total = models.DecimalField(max_digits=13, decimal_places=2)
+	confirmed = models.BooleanField(default=False)
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 
