@@ -2,15 +2,16 @@ from django.db import models
 from django.conf import settings
 
 
-class Employee(models.Model):
-	STATUS_CHOICES = (
-		('consultant', 'Consultant'),
-		('cashier', 'Cashier'),
-		('booker', 'Booker'),
-	)
+class Post(models.Model):
+	title = models.CharField(max_length=255) 
 
+	def __str__(self):
+		return '{}'.format(self.title, )
+
+
+class Employee(models.Model):
 	user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-	post = models.CharField(max_length=15, choices=STATUS_CHOICES, default='consultant')
+	post = models.ForeignKey(Post, on_delete=models.SET_NULL, null=True)
 
 	def __str__(self):
 		return '{} {}'.format(self.post, self.user.username)
@@ -40,6 +41,7 @@ class Order(models.Model):
 	sale = models.ForeignKey(Sales, on_delete=models.SET_NULL, blank=True, null=True, default=None)
 	total = models.DecimalField(max_digits=13, decimal_places=2)
 	confirmed = models.BooleanField(default=False)
+	paid = models.BooleanField(default=False)
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 

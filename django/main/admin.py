@@ -14,7 +14,7 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(models.Order)
 class OrderAdmin(admin.ModelAdmin):
-	list_display = ('customer', 'product', 'consultant', 'sale', 'total', 'confirmed')
+	list_display = ('customer', 'product', 'consultant', 'sale', 'total', 'confirmed', 'paid')
 	list_filter = ('product', 'customer')
 
 
@@ -22,3 +22,7 @@ class OrderAdmin(admin.ModelAdmin):
 class SalesAdmin(admin.ModelAdmin):
 	list_display = ('types', 'coef', 'priority')
 	ordering = ('priority',)
+
+@admin.register(models.Post)
+class PostAdmin(admin.ModelAdmin):
+	list_display = ('id', 'title')
