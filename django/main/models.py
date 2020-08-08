@@ -28,12 +28,16 @@ class Product(models.Model):
 class Sales(models.Model):
 	types = models.CharField(max_length=20, unique=True)
 	coef = models.FloatField()
+	priority = models.IntegerField(unique=True, null=True)
+
+	def __str__(self):
+		return '{}'.format(self.coef)
 
 class Order(models.Model):
 	customer = models.CharField(max_length=255)
 	consultant = models.ForeignKey(Employee, on_delete=models.SET_NULL, null=True)
 	product = models.ForeignKey(Product, on_delete=models.CASCADE)
-	sale = models.ForeignKey(Sales, on_delete=models.SET_NULL, null=True)
+	sale = models.ForeignKey(Sales, on_delete=models.SET_NULL, blank=True, null=True)
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 
