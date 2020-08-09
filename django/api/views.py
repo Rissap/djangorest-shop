@@ -95,12 +95,8 @@ class OrderPaymentView(APIView):
 
 class OrderFilterView(APIView):
     def get(self, request, from_date, to_date, format=None):
-        #from_date = datetime.strptime(from_date, "%Y-%m-%d")
-        #to_date = datetime.strptime(to_date, "%Y-%m-%d")
-        print(to_date)
         orders = models.Order.objects\
             .filter(created_at__range=[from_date, to_date])
-
 
         args = {"orders": []}
         for order in orders:
