@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404
 
 from main.models import Sales
 
-# if product has a few sales, select one with the bigger priority
+# if product has a few sales (it's old and deffected), select one with the bigger priority
 #PRIORITY = ['deffect', 'old']
 
 def get_sale(product):

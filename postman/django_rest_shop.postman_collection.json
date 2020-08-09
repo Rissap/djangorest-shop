@@ -11,6 +11,21 @@
 				{
 					"name": "GetAllOrders",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -28,7 +43,7 @@
 								""
 							]
 						},
-						"description": "Recieved all orders"
+						"description": "Return all orders, confirmed by a consultant  \r\nOrders may not be payd by a customer  \r\n  \r\nBasic auth required"
 					},
 					"response": []
 				},
@@ -38,6 +53,21 @@
 						"disableBodyPruning": true
 					},
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -60,7 +90,8 @@
 								"2020-08-01",
 								""
 							]
-						}
+						},
+						"description": "Returned list of orders between two dates  \r\nDates should be set in url like:  \r\n  \r\ndomain.com/api/orders/[from_date]/[to_date]/  \r\n  \r\nDate format: YYYY-MM-DD  \r\n  \r\nBasic auth required"
 					},
 					"response": []
 				}
@@ -89,6 +120,21 @@
 				{
 					"name": "Create new order",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -127,7 +173,7 @@
 								""
 							]
 						},
-						"description": "Create an order from customer  \r\n\r\nForm fields required:  \r\n\r\ncustomer : Full name of the customer  \r\nproduct_id : id of the product  \r\nsale_id: sale id for product (NOT REQUIRED; will replace any sale that can be applied)"
+						"description": "Create an order from customer  \r\n\r\nForm fields required:  \r\n\r\ncustomer : Full name of the customer  \r\nproduct_id : id of the product  \r\nsale_id: sale id for product (NOT REQUIRED; will replace any sale that can be auto applied to the product)\r\n  \r\nBasic auth required"
 					},
 					"response": []
 				},
@@ -152,7 +198,7 @@
 								""
 							]
 						},
-						"description": "Select one product with full description"
+						"description": "Return one product with full description  \r\n\r\nSelect one product with full description  \r\nSet product id to the URL:  \r\ndomain.com/api/products/[product_id]/\r\n\r\nAuth not required."
 					},
 					"response": []
 				},
@@ -162,7 +208,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "127.0.0.1:8000/api/orders/",
+							"raw": "127.0.0.1:8000/api/products/",
 							"host": [
 								"127",
 								"0",
@@ -172,17 +218,32 @@
 							"port": "8000",
 							"path": [
 								"api",
-								"orders",
+								"products",
 								""
 							]
 						},
-						"description": "Get full product list "
+						"description": "Return all products in the catalog"
 					},
 					"response": []
 				},
 				{
 					"name": "ConfirmPaymentOrder",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -211,7 +272,7 @@
 								""
 							]
 						},
-						"description": "Recieve a list of confirmed orders"
+						"description": "Confirm payment for the order  \r\n\r\nForm required:  \r\norder_id: id of the order\r\n  \r\nBasic auth required"
 					},
 					"response": []
 				},
@@ -235,13 +296,28 @@
 								""
 							]
 						},
-						"description": "Confirm payment from customer"
+						"description": "Return list of orders, that are not payed yet."
 					},
 					"response": []
 				},
 				{
 					"name": "GetOrderTotalPrice",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -259,7 +335,8 @@
 								"5",
 								""
 							]
-						}
+						},
+						"description": "Return one order with full data and price in total (with sale).  \r\nBasic Auth required"
 					},
 					"response": []
 				}
@@ -288,6 +365,21 @@
 				{
 					"name": "GetNotConfirmedOrders",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -305,7 +397,7 @@
 								""
 							]
 						},
-						"description": "Recieve orders without confirmation"
+						"description": "Return list of orders, thar are not confirmed  \r\nBasic auth required"
 					},
 					"response": []
 				},
@@ -340,7 +432,7 @@
 								""
 							]
 						},
-						"description": "Confirm order"
+						"description": "Confirm order from customer.  \r\nForm fields required:  \r\norder_id : id of the order"
 					},
 					"response": []
 				},
@@ -364,7 +456,8 @@
 								"2",
 								""
 							]
-						}
+						},
+						"description": "Return one order with all data  \r\nUse order_id to get concrete order:  \r\ndomain.com/api/orders/[order_id]/"
 					},
 					"response": []
 				}
@@ -447,11 +540,40 @@
 				{
 					"name": "GetUsersWithoutPost",
 					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": ""
-						}
+							"raw": "127.0.0.1:8000/api/users/enroll/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								"enroll",
+								""
+							]
+						},
+						"description": "Return a users list that have not an post (just created users).  \r\nReturn list of posts in the company."
 					},
 					"response": []
 				},
@@ -505,7 +627,8 @@
 								"enroll",
 								""
 							]
-						}
+						},
+						"description": "Enroll user to the post\r\n\r\nForm fields required:  \r\nuser: user id  \r\npost: post id"
 					},
 					"response": []
 				}

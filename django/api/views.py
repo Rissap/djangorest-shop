@@ -24,8 +24,11 @@ class ProductDetailsView(generics.RetrieveAPIView):
     serializer_class = serializers.ProductSerializer
 
 
+
 class OrderListView(generics.ListAPIView):
     serializer_class = serializers.OrderSerializer
+    authentication_classes = (BasicAuthentication,)
+    permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
         employee = models.Employee.objects.get(user=self.request.user)
@@ -41,9 +44,14 @@ class OrderListView(generics.ListAPIView):
 class OrderDetailsView(generics.RetrieveAPIView):
     queryset = models.Order.objects.all()
     serializer_class = serializers.OrderSerializer
+    authentication_classes = (BasicAuthentication,)
+    permission_classes = (IsAuthenticated,)
 
 
 class OrderConfirmView(APIView):
+    authentication_classes = (BasicAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
     def post(self, request, format=None):
         order = get_object_or_404(
             models.Order, pk=request.POST.get('order_id'))
@@ -82,6 +90,9 @@ class OrderEnrollView(APIView):
 
 
 class OrderPaymentView(APIView):
+    authentication_classes = (BasicAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
     def post(self, request, format=None):
         employee = get_object_or_404(models.Employee, user=request.user)
         confirm = False
@@ -95,6 +106,9 @@ class OrderPaymentView(APIView):
 
 
 class OrderFilterView(APIView):
+    authentication_classes = (BasicAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, from_date, to_date, format=None):
         orders = models.Order.objects\
             .filter(created_at__range=[from_date, to_date])
@@ -113,7 +127,8 @@ class CreateUserView(generics.CreateAPIView):
 
 
 class CreateEmployeeView(APIView):
-    permission_classes = (IsAuthenticated, )
+    authentication_classes = (BasicAuthentication,)
+    permission_classes = (IsAuthenticated,)
 
     def get(self, request, format=None):
         employee = models.Employee.objects.values_list('user', flat=True)
