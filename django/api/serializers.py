@@ -15,13 +15,6 @@ class SaleSerializer(serializers.ModelSerializer):
         fields = ['types', 'coef']
 
 
-class OrderSerializer(serializers.ModelSerializer):
-    sale = SaleSerializer(read_only=True)
-    class Meta:
-        model = models.Order
-        fields = ['id', 'customer', 'consultant', 'product', 'total', 'sale', 'confirmed', 'created_at']
-
-
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Post
@@ -37,6 +30,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class EmployeeSerializer(serializers.ModelSerializer):
     user = UserSerializer()
+    post = PostSerializer()
 
     class Meta:
         model = models.Employee
@@ -50,3 +44,13 @@ class EmployeeSerializer(serializers.ModelSerializer):
         user.save()
 
         return user
+
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    sale = SaleSerializer(read_only=True)
+    consultant = EmployeeSerializer()
+    product = PostSerializer()
+    class Meta:
+        model = models.Order
+        fields = '__all__'
