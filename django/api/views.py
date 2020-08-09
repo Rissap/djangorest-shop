@@ -10,7 +10,7 @@ from rest_framework.permissions import IsAuthenticated
 
 from datetime import datetime
 from services import sales
-from main import models, forms
+from main import models
 from . import serializers
 
 

@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "1182083c-c8e7-48a6-9510-b7f0712d2c83",
+		"_postman_id": "73abd8a7-2406-4ea1-9cbc-636b67d8c900",
 		"name": "django_rest_shop",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -96,12 +96,12 @@
 							"formdata": [
 								{
 									"key": "customer",
-									"value": "Иванов Иван Иванович",
+									"value": "Иванов Иван Петрович",
 									"type": "text"
 								},
 								{
 									"key": "product_id",
-									"value": "4",
+									"value": "5",
 									"type": "text"
 								},
 								{
@@ -458,10 +458,53 @@
 				{
 					"name": "SetUserPost",
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user",
+									"value": "9",
+									"type": "text"
+								},
+								{
+									"key": "post",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
 						"url": {
-							"raw": ""
+							"raw": "127.0.0.1:8000/api/users/enroll/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								"enroll",
+								""
+							]
 						}
 					},
 					"response": []
