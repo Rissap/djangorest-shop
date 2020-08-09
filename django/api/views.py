@@ -1,4 +1,6 @@
 from django.shortcuts import get_object_or_404
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
 
 from rest_framework import generics
 from rest_framework.views import APIView
@@ -68,7 +70,6 @@ class OrderEnrollView(APIView):
         if sale:
             total *= sale.coef
 
-
         order = models.Order(
             customer=customer,
             consultant=models.Employee.objects.get(user=request.user),
@@ -103,3 +104,38 @@ class OrderFilterView(APIView):
             args["orders"].append(serializers.OrderSerializer(order).data)
 
         return Response(args)
+
+
+class CreateUserView(generics.CreateAPIView):
+    model = get_user_model()
+    permission_classes = (IsAuthenticated, )
+    serializer_class = serializers.UserSerializer
+
+
+class CreateEmployeeView(APIView):
+    permission_classes = (IsAuthenticated, )
+
+    def get(self, request, format=None):
+        employee = models.Employee.objects.values_list('user', flat=True)
+        users = User.objects.exclude(id__in=employee)
+        args = {
+            "posts": [],
+            "users": []
+            }
+        
+        for user in users:
+            args["users"].append(serializers.UserSerializer(user).data)
+
+        for post in models.Post.objects.all():
+            args["posts"].append(serializers.PostSerializer(post).data)
+
+        return Response(args)
+
+    def post(self, request, format=None):
+        user = get_object_or_404(User, id=request.POST.get("user"))
+        post = get_object_or_404(models.Post, id=request.POST.get("post"))
+
+        employee = models.Employee(user=user, post=post)
+        employee.save()
+
+        return Response({'register': True})

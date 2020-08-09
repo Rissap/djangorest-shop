@@ -4,6 +4,9 @@ from . import views
 app_name = 'product_api'
 
 urlpatterns = [
+	path('users/new/', views.CreateUserView.as_view(), name='user_create'),
+	path('users/enroll/', views.CreateEmployeeView.as_view(), name='employee_create'),
+
 	path('products/', views.ProductListView.as_view(), name='product_list'),
 	path('products/<pk>/', views.ProductDetailsView.as_view(), name='product_details'),
 

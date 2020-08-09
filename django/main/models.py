@@ -10,7 +10,7 @@ class Post(models.Model):
 
 
 class Employee(models.Model):
-	user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+	user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, )
 	post = models.ForeignKey(Post, on_delete=models.SET_NULL, null=True)
 
 	def __str__(self):
@@ -33,6 +33,7 @@ class Sales(models.Model):
 
 	def __str__(self):
 		return '{}'.format(self.coef)
+
 
 class Order(models.Model):
 	customer = models.CharField(max_length=255)

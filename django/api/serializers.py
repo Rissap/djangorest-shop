@@ -18,14 +18,25 @@ class SaleSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Post
-        fields = '__all__'
+        fields = ('id', 'title')
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('username', 'password')
-        extra_kwargs = {'password': {'write_only': True}}
+        fields = ('id', 'username', 'password', 'first_name', 'last_name')
+        write_only_fields = ('password',)
+        read_only_fields = ('id',)
+
+
+    def create(self, validated_data):
+        user = User.objects.create(
+            username=validated_data['username'])
+
+        user.set_password(validated_data['password'])
+        user.save()
+
+        return user
 
 
 class EmployeeSerializer(serializers.ModelSerializer):
@@ -38,12 +49,7 @@ class EmployeeSerializer(serializers.ModelSerializer):
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
-        password = validated_data.pop('password')
-        user = User(**validated_data)
-        user.set_password(password)
-        user.save()
-
-        return user
+        print(validated_data["keys"])
 
 
 
