@@ -10,7 +10,15 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- Дамп данных таблицы main.main_product: 5 rows
+-- Дамп данных таблицы main.main_post: -1 rows
+/*!40000 ALTER TABLE "main_post" DISABLE KEYS */;
+INSERT INTO "main_post" ("id", "title") VALUES
+	(1, 'Cashier'),
+	(2, 'Booker'),
+	(3, 'Consultant');
+/*!40000 ALTER TABLE "main_post" ENABLE KEYS */;
+
+-- Дамп данных таблицы main.main_product: -1 rows
 /*!40000 ALTER TABLE "main_product" DISABLE KEYS */;
 INSERT INTO "main_product" ("id", "title", "created_at", "updated_at", "price") VALUES
 	(1, 'Electric Kettle', '2020-08-08 21:45:40.911612', '2020-08-08 21:45:40.911612', 126.05),
@@ -20,7 +28,7 @@ INSERT INTO "main_product" ("id", "title", "created_at", "updated_at", "price") 
 	(5, 'Clock', '2020-08-08 21:46:59.286095', '2020-08-08 21:47:08.850642', 25.99);
 /*!40000 ALTER TABLE "main_product" ENABLE KEYS */;
 
--- Дамп данных таблицы main.main_sales: 1 rows
+-- Дамп данных таблицы main.main_sales: -1 rows
 /*!40000 ALTER TABLE "main_sales" DISABLE KEYS */;
 INSERT INTO "main_sales" ("id", "types", "priority", "coef") VALUES
 	(1, 'old', 2, 0.8);
